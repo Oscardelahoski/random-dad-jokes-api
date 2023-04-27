@@ -1,6 +1,6 @@
 const express = require ('express');
-const axios = require ('axios');
-const { userRouter } = require('./src/routes/api.router')
+// const axios = require ('axios');
+const { apiRouter } = require('./src/routes/api.router')
 const app = express();
 const port = 4000;
 
@@ -9,15 +9,15 @@ const port = 4000;
 app.use (express.json());
 
 // Routers
-app.use ('/api/v1/users', userRouter);
+app.use ('/api/v1/users', apiRouter);
 
 
-axios.get ('https://rapidapi.com/dad-jokes.p.rapidapi.com')
-.then((result) => {
-       console.log (result.data);
-}).catch((err) => {
-    console.log (err)
-});
+app.use((err, req, res, next) =>{
+    return res.status(err.status || 500).json({
+        status: 'failed',
+        message: err.message
+    })
+})
 
 
 

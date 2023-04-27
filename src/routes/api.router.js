@@ -1,11 +1,10 @@
 const express = require ('express');
+const apiController = require ('../controllers/api_controller')
 const router = express.Router()
 
-router.get('/', (req, res) => {
-    res.send('Api server is ready')
-  })
+router.get('/apiRequest', apiController.randomDadJokes)
 
 
 module.exports = {
-    userRouter: router
+    apiRouter: router
 }
